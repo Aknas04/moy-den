@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#4f46e5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Мой день">
+  <title>Мой день</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-row">
+      <div>
+        <h1 id="title">Задачи</h1>
+        <p id="subtitle"></p>
+      </div>
+      <button id="open-settings" class="icon-btn" aria-label="Настройки">⚙️</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Задачи -->
+    <section id="tab-tasks" class="tab">
+      <form id="task-form" class="add">
+        <input id="task-input" placeholder="Новая задача…" autocomplete="off" maxlength="200" required>
+        <button aria-label="Добавить">+</button>
+      </form>
+      <div class="chips" id="task-filter">
+        <button data-f="all" class="active">Все</button>
+        <button data-f="active">Активные</button>
+        <button data-f="done">Готово</button>
+      </div>
+      <ul id="task-list" class="list"></ul>
+      <p class="empty" id="task-empty">Задач пока нет</p>
+      <p class="hint" id="task-hint">Нажмите на задачу, чтобы изменить её</p>
+      <button id="task-clear" class="link">Удалить выполненные</button>
+    </section>
+
+    <!-- Привычки -->
+    <section id="tab-habits" class="tab">
+      <form id="habit-form" class="add">
+        <input id="habit-input" placeholder="Новая привычка, напр. 💧 Пить воду" autocomplete="off" maxlength="60" required>
+        <button aria-label="Добавить">+</button>
+      </form>
+      <ul id="habit-list" class="list"></ul>
+      <p class="empty" id="habit-empty">Добавьте первую привычку и отмечайте её каждый день</p>
+    </section>
+
+    <!-- Финансы -->
+    <section id="tab-money" class="tab">
+      <div class="seg" id="money-type">
+        <button type="button" data-t="expense" class="active">Расход</button>
+        <button type="button" data-t="income">Доход</button>
+      </div>
+      <form id="money-form" class="money-form">
+        <input id="money-amount" type="text" inputmode="decimal" placeholder="Сумма" autocomplete="off" required>
+        <select id="money-cat"></select>
+        <input id="money-note" class="full" placeholder="Комментарий (необязательно)" autocomplete="off" maxlength="100">
+        <button id="money-submit" class="primary full">Добавить расход</button>
+      </form>
+
+      <div class="month-nav">
+        <button id="m-prev" aria-label="Предыдущий месяц">‹</button>
+        <span id="m-label"></span>
+        <button id="m-next" aria-label="Следующий месяц">›</button>
+      </div>
+      <div class="card total">
+        <small class="label">Баланс за месяц</small>
+        <div class="big" id="m-balance"></div>
+        <div class="io">
+          <div><small>Доходы</small><b class="plus" id="m-in"></b></div>
+          <div><small>Расходы</small><b class="minus" id="m-out"></b></div>
+        </div>
+        <div id="m-cats"></div>
+      </div>
+      <ul id="money-list" class="list"></ul>
+      <p class="empty" id="money-empty">В этом месяце записей нет</p>
+      <p class="hint" id="money-hint">Нажмите на запись, чтобы изменить её</p>
+    </section>
+  </main>
+
+  <nav class="nav">
+    <button data-tab="tasks"><span>✅</span>Задачи</button>
+    <button data-tab="habits"><span>🔥</span>Привычки</button>
+    <button data-tab="money"><span>💰</span>Финансы</button>
+  </nav>
+
+  <!-- Всплывающее окно: редактирование и настройки -->
+  <dialog id="sheet">
+    <form id="sheet-form">
+      <h2 id="sheet-title"></h2>
+      <div id="sheet-body"></div>
+      <div class="sheet-actions">
+        <button type="button" id="sheet-cancel" class="ghost">Отмена</button>
+        <button value="ok" id="sheet-ok" class="primary">Сохранить</button>
+      </div>
+    </form>
+  </dialog>
+
+  <input type="file" id="import-file" accept=".json,application/json" hidden>
+
+  <script src="app.js"></script>
+</body>
+</html>

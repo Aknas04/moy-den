@@ -1,0 +1,243 @@
+:root {
+  --bg: #f4f5fb;
+  --card: #ffffff;
+  --text: #1c1d29;
+  --muted: #6b6f85;
+  --line: #e4e6f0;
+  --accent: #4f46e5;
+  --accent-soft: #e8e7fd;
+  --ok: #16a34a;
+  --danger: #e11d48;
+  --radius: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f1017;
+    --card: #1a1c26;
+    --text: #eceef7;
+    --muted: #9397ad;
+    --line: #2a2d3b;
+    --accent: #6d68f0;
+    --accent-soft: #272a4a;
+    --danger: #fb7185;
+  }
+}
+
+* { box-sizing: border-box; margin: 0; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-tap-highlight-color: transparent;
+}
+
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+input, select {
+  font: inherit;
+  font-size: 16px; /* иначе iPhone приближает поле при фокусе */
+  color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px 14px;
+  width: 100%;
+  min-width: 0;
+  outline: none;
+}
+input:focus, select:focus { border-color: var(--accent); }
+
+.wrap { max-width: 560px; margin: 0 auto; padding-left: 16px; padding-right: 16px; }
+
+/* Шапка */
+.top {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--bg);
+  padding-top: calc(env(safe-area-inset-top) + 16px);
+  padding-bottom: 12px;
+}
+.top h1 { font-size: 28px; font-weight: 700; }
+.top p { color: var(--muted); font-size: 14px; margin-top: 2px; min-height: 1.2em; }
+
+main { padding-bottom: calc(90px + env(safe-area-inset-bottom)); }
+
+.tab { display: none; }
+.tab.active { display: block; }
+
+/* Поле добавления */
+.add { display: flex; gap: 8px; margin-bottom: 12px; }
+.add button {
+  flex: none;
+  width: 48px;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.chips { display: flex; gap: 6px; margin-bottom: 12px; }
+.chips button {
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  font-size: 14px;
+  color: var(--muted);
+}
+.chips button.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* Списки */
+.list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 12px 8px 12px 14px;
+}
+.item .text { flex: 1; word-break: break-word; }
+.item .sub { display: block; font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+.check {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+}
+.done .check { background: var(--ok); border-color: var(--ok); }
+.done .text { text-decoration: line-through; color: var(--muted); }
+
+.del { flex: none; width: 32px; height: 32px; border-radius: 8px; color: var(--muted); font-size: 22px; }
+.del:active { color: var(--danger); }
+
+.empty { text-align: center; color: var(--muted); padding: 32px 16px; }
+.link { display: block; margin: 16px auto 0; color: var(--danger); font-size: 14px; padding: 8px; }
+
+.card { background: var(--card); border-radius: var(--radius); padding: 14px; }
+
+/* Привычки */
+.habit { display: block; }
+.habit-top { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.habit-top .text { flex: 1; font-weight: 600; word-break: break-word; }
+.streak { font-size: 14px; color: var(--muted); white-space: nowrap; }
+.days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 0;
+  border-radius: 12px;
+  background: var(--bg);
+  font-weight: 600;
+  font-size: 15px;
+}
+.day small { font-size: 11px; font-weight: 500; color: var(--muted); }
+.day.today { box-shadow: inset 0 0 0 2px var(--accent); }
+.day.on { background: var(--ok); color: #fff; }
+.day.on small { color: rgba(255, 255, 255, .85); }
+
+/* Расходы */
+.money-form { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+.money-form .full { grid-column: 1 / -1; }
+.primary { background: var(--accent); color: #fff; border-radius: 12px; padding: 13px; font-weight: 600; }
+
+.month-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.month-nav button { width: 40px; height: 40px; border-radius: 50%; background: var(--card); font-size: 22px; }
+.month-nav span { font-weight: 600; }
+
+.total { margin-bottom: 12px; }
+.total .big { font-size: 30px; font-weight: 700; }
+.cat-row { display: grid; grid-template-columns: 1fr auto; gap: 4px 8px; font-size: 14px; margin-top: 12px; }
+.bar { grid-column: 1 / -1; height: 6px; border-radius: 3px; background: var(--bg); overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 3px; }
+
+.cat-icon { font-size: 22px; flex: none; }
+.amount { font-weight: 600; white-space: nowrap; }
+
+
+.plus { color: var(--ok); }
+.minus { color: var(--danger); }
+.total .label { color: var(--muted); font-size: 13px; }
+.io { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+.io div { background: var(--bg); border-radius: 12px; padding: 8px 12px; }
+.io small { display: block; font-size: 12px; color: var(--muted); }
+.io b { font-size: 16px; }
+
+/* Переключатель Расход / Доход */
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; padding: 4px; background: var(--card); border-radius: 12px; margin-bottom: 8px; }
+.seg button { padding: 8px; border-radius: 9px; font-weight: 600; color: var(--muted); }
+.seg button.active { background: var(--accent); color: #fff; }
+.seg button[data-t="income"].active { background: var(--ok); }
+.primary.income { background: var(--ok); }
+
+.hint { text-align: center; color: var(--muted); font-size: 13px; margin-top: 12px; }
+.item.tap, [data-act="edit"] { cursor: pointer; }
+
+/* Шапка с кнопкой настроек */
+.top-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.icon-btn { width: 44px; height: 44px; border-radius: 50%; background: var(--card); font-size: 20px; flex: none; }
+
+/* Всплывающее окно снизу */
+dialog {
+  border: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 560px;
+  margin: auto auto 0;
+  background: var(--card);
+  color: var(--text);
+  border-radius: 20px 20px 0 0;
+}
+dialog::backdrop { background: rgba(0, 0, 0, .45); }
+dialog form { padding: 20px 16px calc(16px + env(safe-area-inset-bottom)); display: flex; flex-direction: column; gap: 14px; }
+dialog h2 { font-size: 20px; }
+dialog input, dialog select { background: var(--bg); }
+dialog .money-form { margin: 0; }
+.sheet-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.sheet-actions button[hidden] { display: none; }
+.sheet-actions:has(#sheet-ok[hidden]) { grid-template-columns: 1fr; }
+.ghost { border-radius: 12px; padding: 13px; font-weight: 600; background: var(--bg); }
+
+.field { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--muted); }
+.backup { display: flex; flex-direction: column; gap: 8px; border-top: 1px solid var(--line); padding-top: 14px; }
+.backup p { font-size: 14px; line-height: 1.4; }
+.muted { color: var(--muted); }
+
+/* Нижнее меню */
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  background: var(--card);
+  border-top: 1px solid var(--line);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.nav button {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 0 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.nav button span { font-size: 20px; padding: 2px 16px; border-radius: 999px; }
+.nav button.active { color: var(--accent); font-weight: 600; }
+.nav button.active span { background: var(--accent-soft); }
